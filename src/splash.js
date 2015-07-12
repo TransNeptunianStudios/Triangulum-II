@@ -9,10 +9,10 @@ Triangulum.Splash.prototype = {
 		var logoFade = this.game.add.tween(logo).to({
 			alpha: 0
 		}, 1000, Phaser.Easing.Linear.None, false, 3000);
-		
-        logoFade.onComplete.add(this.startGame, this);
-		
-        logoFade.start();
+
+		logoFade.onComplete.add(this.startGame, this);
+
+		logoFade.start();
 
 		this.game.input.onDown.add(this.startGame, this);
 		this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).onDown.add(this.startGame, this);
