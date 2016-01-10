@@ -72,8 +72,6 @@ Enemy.prototype.die = function() {
   }
 }
 
-
-
 var BasicAsteroid = {
 
   spriteName: 'basic_asteroid',
@@ -86,6 +84,26 @@ var BasicAsteroid = {
 
     update: function(sprite) {
       sprite.angle += 1;
+    },
+
+    die: function(sprite) {
+      sprite.animations.play('die', 3, false, true);
+    }
+  }
+};
+
+var Enemy1 = {
+
+  spriteName: 'enemy1',
+
+  entityFunctions: {
+    init: function(sprite) {
+      // Add animations
+      sprite.animations.add('die', [1, 3]);
+    },
+
+    update: function(sprite) {
+
     },
 
     die: function(sprite) {
