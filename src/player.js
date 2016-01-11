@@ -94,5 +94,8 @@ Player.prototype.hit = function() {
   else {
     this._isHit = true;
     this.game.time.events.add(this._secondsAfterHit, function() { this._isHit = false; }, this);
+    
+    // Hurt/invincible-"animation", removes itself when done
+    this.game.add.tween(this).to( { alpha: 0 }, this._secondsAfterHit/20, "Linear", true, 0, 10, true);
   }
 }
