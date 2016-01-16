@@ -24,7 +24,8 @@ Level.prototype = {
 
     this._enemies = [
       {'spawn_time': 1000.0, 'start_x': 400, 'start_speed': 20, 'type': 'basic_asteroid'},
-      {'spawn_time': 2000.0, 'start_x': 200, 'start_speed': 20, 'type': 'enemy1'}
+      {'spawn_time': 2000.0, 'start_x': 200, 'start_speed': 20, 'type': 'enemy1'},
+      {'spawn_time': 2000.0, 'start_x': 300, 'start_speed': 20, 'type': 'mine'}
     ];
   },
 
@@ -67,8 +68,11 @@ Level.prototype = {
       case 'enemy1':
         return new Enemy(this.game, {x: enemy['start_x'], y: -16}, enemy['start_speed'], Enemy1);
         break;
+        case 'mine':
+          return new Enemy(this.game, {x: enemy['start_x'], y: -16}, enemy['start_speed'], Mine);
+          break;
       default:
-
+      console.log("Factory was told to create an unknown enemy!")
     }
   },
 };

@@ -51,7 +51,7 @@ Enemy.prototype.update = function() {
 Enemy.prototype.hit = function() {
 
   this.health -= 1;
-  this.game.sound.play('hit1', 0.5);
+  this.game.sound.play('hit1', 0.3);
 
   if (typeof(this._doHit) !== 'undefined') {
     this._doHit(this);
@@ -106,6 +106,26 @@ var Enemy1 = {
 
     update: function(sprite) {
 
+    },
+
+    die: function(sprite) {
+      sprite.animations.play('die', 3, false, true);
+    }
+  }
+};
+
+var Mine = {
+
+  spriteName: 'mine',
+
+  entityFunctions: {
+    init: function(sprite) {
+      // Add animations
+      sprite.animations.add('die', [1, 3]);
+    },
+
+    update: function(sprite) {
+      // CHeck if player is close enough to explode
     },
 
     die: function(sprite) {
