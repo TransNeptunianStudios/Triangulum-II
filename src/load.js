@@ -25,6 +25,8 @@ Triangulum.Load.prototype = {
 
     // load audio
     this.game.load.audio('basic_weapon', 'assets/audio/basic_gun.wav');
+    this.game.load.audio('explosion1', 'assets/audio/explosion1.wav');
+    this.game.load.audio('hit1', 'assets/audio/hit1.wav');
   },
 
   create: function () {

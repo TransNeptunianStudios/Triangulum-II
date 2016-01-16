@@ -51,12 +51,14 @@ Enemy.prototype.update = function() {
 Enemy.prototype.hit = function() {
 
   this.health -= 1;
+  this.game.sound.play('hit1', 0.5);
 
   if (typeof(this._doHit) !== 'undefined') {
     this._doHit(this);
   }
 
   if (this.health == 0) {
+    this.game.sound.play('explosion1');
     this.die();
   }
 }

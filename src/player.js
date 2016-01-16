@@ -90,11 +90,13 @@ Player.prototype.hit = function() {
   this.health -= 1;
   if (this.health == 0) {
     this.kill();
+    this.game.sound.play('explosion1');
   }
   else {
     this._isHit = true;
     this.game.time.events.add(this._secondsAfterHit, function() { this._isHit = false; }, this);
-    
+    this.game.sound.play('hit1');    
+
     // Hurt/invincible-"animation", removes itself when done
     this.game.add.tween(this).to( { alpha: 0 }, this._secondsAfterHit/20, "Linear", true, 0, 10, true);
   }

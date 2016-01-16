@@ -16,7 +16,7 @@ Bullet.prototype.fire = function (x, y, angle, speed) {
   this.reset(x, y);
   this.game.physics.arcade.velocityFromAngle(angle, speed, this.body.velocity);
   this.angle = angle;
-  this.game.sound.play('basic_weapon');
+  this.game.sound.play('basic_weapon');    
 };
 
 Bullet.prototype.update = function () {};
