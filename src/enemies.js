@@ -79,7 +79,6 @@ Enemy.prototype.hit = function() {
   }
 
   if (this.health == 0) {
-    this.game.sound.play('explosion1');
     this.die();
   }
 }
@@ -87,6 +86,7 @@ Enemy.prototype.hit = function() {
 Enemy.prototype.die = function() {
   if (this.alive) {
 
+    this.game.sound.play('explosion1');
     this.alive = false;
 
     if (typeof(this._doDie) !== 'undefined') {
@@ -161,8 +161,11 @@ var Mine = {
     see: function(player)
     {
       var dist = Phaser.Math.distance(player.x, player.y, this.x, this.y);
-      if(dist < 100)
-        console.log("I SEE HIM!");
+      if(dist < 100 && this.alive)
+      {
+        player.hit();
+        this.die();
+      }
     },
 
     die: function(sprite) {
