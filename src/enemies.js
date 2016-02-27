@@ -158,6 +158,13 @@ var Mine = {
       // CHeck if player is close enough to explode
     },
 
+    see: function(player)
+    {
+      var dist = Phaser.Math.distance(player.x, player.y, this.x, this.y);
+      if(dist < 100)
+        console.log("I SEE HIM!");
+    },
+
     die: function(sprite) {
       sprite.animations.play('die', 3, false, true);
     }

@@ -21,6 +21,10 @@ Bullet.prototype.fire = function (x, y, angle, speed) {
   return this;
 };
 
+Bullet.prototype.hit = function () {
+  this.kill();
+};
+
 Bullet.prototype.update = function () {};
 
 var Weapon = {};
@@ -81,7 +85,6 @@ Weapon.TargetingBullet.prototype.fire = function (source, target) {
 
   var angle = this.game.math.angleBetween( source.x, source.y,
                                            target.x, target.y);
-                                           console.log(angle);
 
   var x = source.x + (Math.cos(angle) * 20);
   var y = source.y + (Math.sin(angle) * 20);

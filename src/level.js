@@ -67,11 +67,9 @@ Level.prototype = {
       this._playerWeapons[i].forEachExists(function(bullet) {
         bullet.game.physics.arcade.overlap(bullet, this._enemyGroup, null, function(bull, enemy) {
           if (enemy.alive) {
-            bull.kill();
+            bull.hit();
+            enemy.hit();
           }
-
-          enemy.hit();
-
         }, this);
       }, this);
     }
