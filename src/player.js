@@ -24,7 +24,7 @@ var Player = function(game, startPos, weapons) {
   this.animations.play('idle', 4, true);
 
   // Set player health
-  this.health = 1;
+  this.health = 10;
 
   // Keys for checking if any key is being pressed
   this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);

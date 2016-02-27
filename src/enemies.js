@@ -1,4 +1,4 @@
-var Enemy = function(game, startPos, startSpeed, enemyType) {
+var Enemy = function(game, startPos, startSpeed, enemyGroup, enemyType, player) {
 
   // Call super class
   Phaser.Sprite.call(this, game, startPos.x, startPos.y, enemyType.spriteName);
@@ -21,12 +21,25 @@ var Enemy = function(game, startPos, startSpeed, enemyType) {
 
   this.health = 5;
 
+  this.player = player;
+  this.weapon = null;
+
+  this.enemyGroup = enemyGroup;
+
   if (typeof(enemyType.entityFunctions.init) !== 'undefined') {
     enemyType.entityFunctions.init(this);
   }
 
+  if (typeof(enemyType.entityFunctions.addToGame) !== 'undefined') {
+    this.addToGame = enemyType.entityFunctions.addToGame;
+  }
+
   if (typeof(enemyType.entityFunctions.update) !== 'undefined') {
     this._doUpdate = enemyType.entityFunctions.update;
+  }
+
+  if (typeof(enemyType.entityFunctions.see) !== 'undefined') {
+    this._see = enemyType.entityFunctions.see;
   }
 
   if (typeof(enemyType.entityFunctions.hit) !== 'undefined') {
@@ -42,7 +55,15 @@ var Enemy = function(game, startPos, startSpeed, enemyType) {
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
 Enemy.prototype.constructor = Enemy;
 
+Enemy.prototype.addToGame = function() {
+  this.enemyGroup.add(this);
+}
+
 Enemy.prototype.update = function() {
+  if (typeof(this._see) !== 'undefined') {
+    this._see(this.player);
+  }
+
   if (typeof(this._doUpdate) !== 'undefined') {
     this._doUpdate(this);
   }
@@ -97,15 +118,24 @@ var BasicAsteroid = {
 var Enemy1 = {
 
   spriteName: 'enemy1',
-
+  weaponLock: null,
   entityFunctions: {
     init: function(sprite) {
       // Add animations
       sprite.animations.add('die', [1, 3]);
+      sprite.weapon = new Weapon.TargetingBullet(sprite.game);
     },
 
     update: function(sprite) {
+      if(sprite.weapon != null && sprite.weaponLock != null)
+        var bullet = sprite.weapon.fire(this, sprite.weaponLock);
+        if(bullet != null)
+          sprite.enemyGroup.add(bullet);
+    },
 
+    see: function(player)
+    {
+      this.weaponLock = player.position;
     },
 
     die: function(sprite) {
