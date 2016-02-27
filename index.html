@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8" />
   <title>Triangulum - The next encounter</title>
-  <style> body { margin: 0; background: #FFFFFF; } </style>
+  <style>
+    body {
+      margin: 0;
+      background: #FFFFFF;
+    }
+  </style>
 
   <script src="lib/phaser.js"></script>
 
@@ -16,19 +22,23 @@
   <script src="src/level.js"></script>
   <script src="src/weapons.js"></script>
   <script src="src/game.js"></script>
+
+  <script src="tools/newLevel.json"></script>
 </head>
+
 <body>
 
-<script>
-(function() {
-  var game = new Phaser.Game(800, 400, Phaser.CANVAS, 'Triangulum II');
-  game.state.add('Boot', Triangulum.Boot);
-  game.state.add('Load', Triangulum.Load);
-  game.state.add('Splash', Triangulum.Splash);
-  game.state.add('Menu', Triangulum.Menu);
-  game.state.add('Game', Triangulum.Game);
-  game.state.start('Boot');
-})();
-</script>
+  <script>
+    (function() {
+      var game = new Phaser.Game(800, 400, Phaser.CANVAS, 'Triangulum II');
+      game.state.add('Boot', Triangulum.Boot);
+      game.state.add('Load', Triangulum.Load);
+      game.state.add('Splash', Triangulum.Splash);
+      game.state.add('Menu', Triangulum.Menu);
+      game.state.add('Game', Triangulum.Game);
+      game.state.start('Boot');
+    })();
+  </script>
 </body>
+
 </html>

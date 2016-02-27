@@ -24,7 +24,7 @@ var Player = function(game, startPos, weapons) {
   this.animations.play('idle', 4, true);
 
   // Set player health
-  this.health = 3;
+  this.health = 1;
 
   // Keys for checking if any key is being pressed
   this.leftKey = this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
@@ -95,7 +95,7 @@ Player.prototype.hit = function() {
   else {
     this._isHit = true;
     this.game.time.events.add(this._secondsAfterHit, function() { this._isHit = false; }, this);
-    this.game.sound.play('hit1');    
+    this.game.sound.play('hit1');
 
     // Hurt/invincible-"animation", removes itself when done
     this.game.add.tween(this).to( { alpha: 0 }, this._secondsAfterHit/20, "Linear", true, 0, 10, true);

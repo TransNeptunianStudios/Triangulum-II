@@ -15,6 +15,7 @@ Level.prototype = {
     this._playerWeapons.push(new Weapon.BasicBullet(this.game));
 
     this._elapsedMsSinceStart = 0;
+    this.game.time.reset();
 
     this._player = new Player(this.game, {x: 400, y: 200}, this._playerWeapons);
 
@@ -22,11 +23,15 @@ Level.prototype = {
     this._enemyGroup.physicsBodyType = Phaser.Physics.ARCADE;
     this._enemyGroup.enableBody = true;
 
-    this._enemies = [
-      {'spawn_time': 1000.0, 'start_x': 400, 'start_speed': 20, 'type': 'basic_asteroid'},
-      {'spawn_time': 2000.0, 'start_x': 200, 'start_speed': 20, 'type': 'enemy1'},
+    this._enemies = newLevel.slice(); // copying 
+
+    /*this._enemies = [
+      {'spawn_time': 0.0, 'start_x': 400, 'start_speed': 20, 'type': 'basic_asteroid'},
+      {'spawn_time': 1000.0, 'start_x': 200, 'start_speed': 20, 'type': 'enemy1'},
       {'spawn_time': 2000.0, 'start_x': 300, 'start_speed': 20, 'type': 'mine'}
-    ];
+    ];*/
+
+    this._completed = false;
   },
 
   update: function() {
@@ -54,6 +59,12 @@ Level.prototype = {
 
         }, this);
       }, this);
+    }
+
+    // End level if player dead
+    if(!this._player.alive){
+      this.completed = true;
+      this.game.world.remove(this.background);
     }
 
     // Update elapsed milliseconds since start of level
