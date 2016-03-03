@@ -20,8 +20,8 @@ file.write("newLevel = [");
 for y in range(h-1, 0, -1):
 	for x in range(0, w):
 		if pix[x, y] != 0:
-			file.write("{\'spawn_time\': " + str((h-y) * random.uniform(1000.0, 1000.0)) + ",");
-			file.write( "\'start_x\': " + str(30 + x * gameX / random.uniform(9.5, 10.5) ) + ", ");
+			file.write("{\'spawn_time\': " + str((h-y) * 1000) + ",");
+			file.write( "\'start_x\': " + str(30 + x * gameX / 10 ) + ", ");
 			file.write( "\'start_speed\': 20, ");
 			if pix[x, y] == 17 : #blue
 				file.write( "\'type\': \'mine\'},\n");
