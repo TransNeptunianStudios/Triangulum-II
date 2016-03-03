@@ -52,13 +52,13 @@ Level.prototype = {
     // Handle player collision with enemy bullets
     this.game.physics.arcade.overlap(this._player, this._bulletGroup, null, function(player, bullet) {
       player.hit();
-      bullet.kill();
+      bullet.hit();
     }, this);
 
     // Handle enemy collision with enemy bullets
     this.game.physics.arcade.overlap(this._enemyGroup, this._bulletGroup, null, function(enemy, bullet) {
       enemy.hit();
-      bullet.kill();
+      bullet.hit();
     }, this);
 
 

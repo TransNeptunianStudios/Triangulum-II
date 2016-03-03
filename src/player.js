@@ -33,6 +33,9 @@ var Player = function(game, startPos, weapons) {
   this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
   this.spaceKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
+  this.finger1 = game.input.pointer1;
+  this.finger2 = game.input.pointer2;
+
   // Boolean for if player just has been hit. Player shall not take damage
   // for some time after being hit.
   this._isHit = false;
@@ -75,7 +78,7 @@ Player.prototype.update = function() {
     this.body.velocity.y = 0;
   }
 
-  if (this.spaceKey.isDown) {
+  if (this.spaceKey.isDown || (this.finger1.isDown && this.finger2.isDown)) {
     this._weapons[this._currentWeapon].fire(this);
   }
 }
