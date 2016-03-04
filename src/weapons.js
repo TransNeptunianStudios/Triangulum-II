@@ -78,7 +78,7 @@ Weapon.TargetingBullet.prototype = Object.create(Phaser.Group.prototype);
 Weapon.TargetingBullet.constructor = Weapon.TargetingBullet;
 
 Weapon.TargetingBullet.prototype.fire = function (source, target) {
-
+  this.source = source;
   if (this.game.time.time < this.nextFire) {
     return;
   }

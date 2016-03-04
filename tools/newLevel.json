@@ -1,4 +1,1 @@
-newLevel = [{'spawn_time': 2000,'start_x': 178, 'start_speed': 20, 'type': 'basic_asteroid'},
-{'spawn_time': 2000,'start_x': 400, 'start_speed': 20, 'type': 'basic_asteroid'},
-{'spawn_time': 2000,'start_x': 622, 'start_speed': 20, 'type': 'basic_asteroid'},
-];
+newLevel = [];

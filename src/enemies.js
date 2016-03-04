@@ -1,4 +1,4 @@
-var Enemy = function(game, startPos, startSpeed, enemyGroup, enemyType, player) {
+var Enemy = function(game, startPos, startSpeed, bulletGroup, enemyType, player) {
 
   // Call super class
   Phaser.Sprite.call(this, game, startPos.x, startPos.y, enemyType.spriteName);
@@ -12,6 +12,8 @@ var Enemy = function(game, startPos, startSpeed, enemyGroup, enemyType, player) 
   this.checkWorldBounds = true;
 
   this.anchor.set(0.5);
+
+  this.bulletGroup = bulletGroup;
 
   this.body.velocity.y = startSpeed;
 
@@ -28,14 +30,9 @@ var Enemy = function(game, startPos, startSpeed, enemyGroup, enemyType, player) 
   this.player = player;
   this.weapon = null;
 
-  this.enemyGroup = enemyGroup;
 
   if (typeof(enemyType.entityFunctions.init) !== 'undefined') {
     enemyType.entityFunctions.init(this);
-  }
-
-  if (typeof(enemyType.entityFunctions.addToGame) !== 'undefined') {
-    this.addToGame = enemyType.entityFunctions.addToGame;
   }
 
   if (typeof(enemyType.entityFunctions.update) !== 'undefined') {
@@ -57,10 +54,6 @@ var Enemy = function(game, startPos, startSpeed, enemyGroup, enemyType, player) 
 
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
 Enemy.prototype.constructor = Enemy;
-
-Enemy.prototype.addToGame = function() {
-  this.enemyGroup.add(this);
-}
 
 Enemy.prototype.update = function() {
   if (typeof(this._see) !== 'undefined') {
@@ -133,7 +126,7 @@ var Enemy1 = {
       if (sprite.weapon != null && sprite.weaponLock != null)
         var bullet = sprite.weapon.fire(this, sprite.weaponLock);
       if (bullet != null)
-        sprite.enemyGroup.add(bullet);
+        sprite.bulletGroup.add(bullet);
     },
 
     see: function(player) {
@@ -174,6 +167,81 @@ var Mine = {
   }
 };
 
+// Boilerplate design pattern!
+var LeftTurret = {
+
+  spriteName: 'turretHub',
+
+  entityFunctions: {
+    init: function(sprite) {
+      sprite.events.onOutOfBounds.removeAll();
+
+      // Add animations
+      sprite.animations.add('die', [1, 1]);
+      sprite.health = 5;
+      sprite.weapon = new Weapon.TargetingBullet(sprite.game);
+    },
+
+    update: function(sprite) {
+      var bullet;
+      var angle = this.game.math.angleBetween( this.x, this.y, this.weaponLock.x, this.weaponLock.y);
+
+      if (sprite.weapon != null && sprite.weaponLock != null
+      && (angle > -Math.PI/2 && angle > Math.PI/2))
+        bullet = sprite.weapon.fire(this, sprite.weaponLock);
+
+      if (bullet != null)
+        sprite.bulletGroup.add(bullet);
+    },
+
+    see: function(player) {
+      this.weaponLock = player.position;
+    },
+
+    die: function(sprite) {
+      sprite.animations.play('die', 3, false, true);
+    }
+  }
+};
+
+// Boilerplate design pattern!
+var RightTurret = {
+
+  spriteName: 'turretHub',
+
+  entityFunctions: {
+    init: function(sprite) {
+      sprite.events.onOutOfBounds.removeAll();
+
+      // Add animations
+      sprite.animations.add('die', [1, 1]);
+      sprite.scale.x = -1
+      sprite.health = 5;
+      sprite.weapon = new Weapon.TargetingBullet(sprite.game);
+    },
+
+    update: function(sprite) {
+      var bullet;
+      var angle = this.game.math.angleBetween( this.x, this.y, this.weaponLock.x, this.weaponLock.y);
+      console.log(angle);
+      if (sprite.weapon != null && sprite.weaponLock != null
+      && (angle > -Math.PI/2 && angle < Math.PI/2))
+        bullet = sprite.weapon.fire(this, sprite.weaponLock);
+
+      if (bullet != null)
+        sprite.bulletGroup.add(bullet);
+    },
+
+    see: function(player) {
+      this.weaponLock = player.position;
+    },
+
+    die: function(sprite) {
+      sprite.animations.play('die', 3, false, true);
+    }
+  }
+};
+
 var Flagship = {
 
   spriteName: 'flagship',
@@ -182,11 +250,17 @@ var Flagship = {
     init: function(sprite) {
       // Add animations
       sprite.animations.add('die', [1, 1]);
+      sprite.health = 15;
     },
 
     update: function(sprite) {
       if(this.y > 64)
         this.body.velocity.y = 0;
+
+      if(this.leftTurret)
+        this.leftTurret.body.velocity = this.body.velocity;
+      if(this.rightTurret)
+        this.rightTurret.body.velocity = this.body.velocity;
       },
 
     see: function(player) {},

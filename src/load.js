@@ -25,6 +25,9 @@ Triangulum.Load.prototype = {
     this.game.load.spritesheet('mine', 'assets/mine.png', 32, 32, 4);
     this.game.load.spritesheet('flagship', 'assets/flagship.png', 128, 256, 1);
 
+    this.game.load.spritesheet('turretHub', 'assets/turretHub.png', 32, 32, 1);
+    this.game.load.spritesheet('turretPipe', 'assets/turretPipe.png', 32, 32, 1);
+
     // load audio
     this.game.load.audio('basic_weapon', 'assets/audio/basic_gun.wav');
     this.game.load.audio('explosion1', 'assets/audio/explosion1.wav');
