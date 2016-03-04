@@ -1,8 +1,15 @@
 from PIL import Image
 from random import randrange
 import random
+import sys
 
-im = Image.open("newLevel.png") #Can be many different formats.
+filename = "newLevel.png"
+if len(sys.argv) > 1 :
+	filename = str(sys.argv[1])
+
+print "Generatin from " + filename
+
+im = Image.open(filename) #Can be many different formats.
 pix = im.load()
 
 # Read from Image
