@@ -15,9 +15,13 @@ var Enemy = function(game, startPos, startSpeed, enemyGroup, enemyType, player) 
 
   this.body.velocity.y = startSpeed;
 
-  this.events.onKilled.add(function() { this.destroy(true); }, this);
+  this.events.onKilled.add(function() {
+    this.destroy(true);
+  }, this);
 
-  this.events.onOutOfBounds.add(function() { this.destroy(true); }, this);
+  this.events.onOutOfBounds.add(function() {
+    this.destroy(true);
+  }, this);
 
   this.health = 5;
 
@@ -49,7 +53,6 @@ var Enemy = function(game, startPos, startSpeed, enemyGroup, enemyType, player) 
   if (typeof(enemyType.entityFunctions.die) !== 'undefined') {
     this._doDie = enemyType.entityFunctions.die;
   }
-
 }
 
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
@@ -127,14 +130,13 @@ var Enemy1 = {
     },
 
     update: function(sprite) {
-      if(sprite.weapon != null && sprite.weaponLock != null)
+      if (sprite.weapon != null && sprite.weaponLock != null)
         var bullet = sprite.weapon.fire(this, sprite.weaponLock);
-        if(bullet != null)
-          sprite.enemyGroup.add(bullet);
+      if (bullet != null)
+        sprite.enemyGroup.add(bullet);
     },
 
-    see: function(player)
-    {
+    see: function(player) {
       this.weaponLock = player.position;
     },
 
@@ -158,15 +160,36 @@ var Mine = {
       // CHeck if player is close enough to explode
     },
 
-    see: function(player)
-    {
+    see: function(player) {
       var dist = Phaser.Math.distance(player.x, player.y, this.x, this.y);
-      if(dist < 100 && this.alive)
-      {
+      if (dist < 100 && this.alive) {
         player.hit();
         this.die();
       }
     },
+
+    die: function(sprite) {
+      sprite.animations.play('die', 3, false, true);
+    }
+  }
+};
+
+var Flagship = {
+
+  spriteName: 'flagship',
+
+  entityFunctions: {
+    init: function(sprite) {
+      // Add animations
+      sprite.animations.add('die', [1, 1]);
+    },
+
+    update: function(sprite) {
+      if(this.y > 64)
+        this.body.velocity.y = 0;
+      },
+
+    see: function(player) {},
 
     die: function(sprite) {
       sprite.animations.play('die', 3, false, true);

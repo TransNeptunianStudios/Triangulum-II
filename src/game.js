@@ -5,7 +5,9 @@ Triangulum.Game = function (game) {
 Triangulum.Game.prototype = {
   init: function() {
     this._level = new Level(this.game);
-    this._level.create(0);
+
+    this._level.create(0, 'flagship');
+
   },
 
   create: function () {

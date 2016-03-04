@@ -3,10 +3,11 @@ var Level = function(game) {
   this._player = null;
   this._enemies = null;
   this._playerWeapons = [];
+  this._levelBoss = null;
 }
 
 Level.prototype = {
-  create: function(level) {
+  create: function(level, boss) {
 
     this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
     this.background.autoScroll(0, 10);
@@ -27,11 +28,18 @@ Level.prototype = {
 
     this._enemies = newLevel.slice(); // copying
 
-    /*this._enemies = [
-      {'spawn_time': 0.0, 'start_x': 400, 'start_speed': 20, 'type': 'basic_asteroid'},
-      {'spawn_time': 1000.0, 'start_x': 200, 'start_speed': 20, 'type': 'enemy1'},
-      {'spawn_time': 2000.0, 'start_x': 300, 'start_speed': 20, 'type': 'mine'}
-    ];*/
+    // super fat way to get boss spawntime from enemies...
+    var bossSpawnTime = 0;
+    for(e in this._enemies){
+      var enemySpawnTime = this._enemies[e].spawn_time;
+      if (enemySpawnTime >= bossSpawnTime)
+        bossSpawnTime = enemySpawnTime + 10000;
+    }
+
+    this._enemies.push({'spawn_time': bossSpawnTime,
+                  'start_x': this.game.width/2,
+                  'start_speed': 20,
+                  'type': boss});
 
     this._completed = false;
   },
@@ -103,6 +111,13 @@ Level.prototype = {
           x: enemy['start_x'],
           y: -16
         }, enemy['start_speed'], this._enemyGroup, Mine, this._player);
+        break;
+      // Bosses
+      case 'flagship':
+        return new Enemy(this.game, {
+          x: enemy['start_x'],
+          y: -110 // get something mathy instead
+        }, enemy['start_speed'], this._enemyGroup, Flagship, this._player);
         break;
       default:
         console.log("Factory was told to create an unknown enemy!")
