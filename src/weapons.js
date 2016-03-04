@@ -13,6 +13,9 @@ Bullet.prototype = Object.create(Phaser.Sprite.prototype);
 Bullet.prototype.constructor = Bullet;
 
 Bullet.prototype.fire = function (x, y, angle, speed) {
+  if(y < 0)
+    return null;
+
   this.reset(x, y);
   this.game.physics.arcade.velocityFromAngle(angle, speed, this.body.velocity);
   this.angle = angle;

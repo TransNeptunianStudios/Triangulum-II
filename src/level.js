@@ -67,10 +67,12 @@ Level.prototype = {
 
     // Handle enemy bullet collision with enemies
     // Doesnt work with the boss :(((((
-    /*this.game.physics.arcade.overlap(this._enemyGroup, this._bulletGroup, null, function(enemy, bullet) {
-      enemy.hit();
-      bullet.hit();
-    }, this);*/
+    this.game.physics.arcade.overlap(this._enemyGroup, this._bulletGroup, null, function(enemy, bullet) {
+      if(!enemy.boss){
+        enemy.hit();
+        bullet.hit();
+      }
+    }, this);
 
     // Handle enemy bullet collision with player
     this.game.physics.arcade.overlap(this._player, this._bulletGroup, null, function(player, bullet) {

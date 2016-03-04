@@ -252,6 +252,7 @@ var Flagship = {
       // Add animations
       sprite.animations.add('die', [1, 1]);
       sprite.health = 15;
+      sprite.boss = true;
     },
 
     update: function(sprite) {
