@@ -118,7 +118,7 @@ Level.prototype = {
         }, enemy['start_speed'], this._bulletGroup, Enemy1, this._player));
         break;
       case 'mine':
-        enemies.add(new Enemy(this.game, {
+        enemies.push(new Enemy(this.game, {
           x: enemy['start_x'],
           y: -16
         }, enemy['start_speed'], this._bulletGroup, Mine, this._player));

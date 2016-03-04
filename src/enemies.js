@@ -134,6 +134,7 @@ var Enemy1 = {
     },
 
     die: function(sprite) {
+      sprite.weapon = null;
       sprite.animations.play('die', 3, false, true);
     }
   }
