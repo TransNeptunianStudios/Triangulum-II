@@ -12,11 +12,11 @@ gulp.task('scripts', () => {
         "src/**/*.js",
     ])
         .pipe(sourcemaps.init())
-         // concat has support for sourcemaps. 
+    // concat has support for sourcemaps. 
         .pipe(concat('game.js'))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('dist/')
-            .pipe(browserSync.stream()))
+        .pipe(gulp.dest('dist/'))
+        .pipe(browserSync.stream());
 });
 
 gulp.task('serve', () => {
