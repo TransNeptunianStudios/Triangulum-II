@@ -1,0 +1,27 @@
+{
+  "name": "triangulum-ii",
+  "version": "1.0.0",
+  "description": "Triangulum II - The next encounter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andersrydman/Triangulum-II.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andersrydman/Triangulum-II/issues"
+  },
+  "homepage": "https://github.com/andersrydman/Triangulum-II#readme",
+  "devDependencies": {
+    "browser-sync": "^2.11.1",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-shell": "^0.5.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-watch": "^4.3.5"
+  }
+}

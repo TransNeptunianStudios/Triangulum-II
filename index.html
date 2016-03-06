@@ -2,35 +2,23 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
-  <title>Triangulum - The next encounter</title>
-  <style>
-    body {
-      margin: 0;
-      background: #FFFFFF;
-    }
-  </style>
+    <meta charset="utf-8" />
+    <title>Triangulum - The next encounter</title>
+    <style>
+        body {
+            margin: 0;
+            background: #FFFFFF;
+        }
+    </style>
 
-  <script src="tools/newLevel.json"></script>
-
-  <script src="lib/phaser.js"></script>
-
-  <script src="src/boot.js"></script>
-  <script src="src/load.js"></script>
-  <script src="src/splash.js"></script>
-  <script src="src/menu.js"></script>
-  <script src="src/player.js"></script>
-  <script src="src/enemies.js"></script>
-  <script src="src/level.js"></script>
-  <script src="src/weapons.js"></script>
-  <script src="src/game.js"></script>
+    <script src="dist/game.js"></script>
 
 </head>
 
 <body>
 
-  <script>
-    (function() {
+    <script>
+        (function() {
       var game = new Phaser.Game(800, 400, Phaser.CANVAS, 'Triangulum II');
       game.state.add('Boot', Triangulum.Boot);
       game.state.add('Load', Triangulum.Load);
@@ -39,7 +27,7 @@
       game.state.add('Game', Triangulum.Game);
       game.state.start('Boot');
     })();
-  </script>
+    </script>
 </body>
 
 </html>
