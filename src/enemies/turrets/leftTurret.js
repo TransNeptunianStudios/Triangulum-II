@@ -11,7 +11,7 @@ var LeftTurret = {
       // Add animations
       sprite.animations.add('die', [1, 1]);
       sprite.health = 5;
-      sprite.weapon = new Weapon.TargetingBullet(sprite.game);
+      sprite.weapon = new Weapon.TargetingGun(sprite.game);
     },
 
     update: function(sprite) {

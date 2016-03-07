@@ -32,7 +32,7 @@ Bullet.prototype.update = function () {};
 
 var Weapon = {};
 
-Weapon.BasicBullet = function (game) {
+Weapon.BasicGun = function (game) {
 
   Phaser.Group.call(this, game, game.world, 'Basic Bullet', false, true, Phaser.Physics.ARCADE);
 
@@ -46,10 +46,10 @@ Weapon.BasicBullet = function (game) {
   }
 };
 
-Weapon.BasicBullet.prototype = Object.create(Phaser.Group.prototype);
-Weapon.BasicBullet.constructor = Weapon.BasicBullet;
+Weapon.BasicGun.prototype = Object.create(Phaser.Group.prototype);
+Weapon.BasicGun.constructor = Weapon.BasicGun;
 
-Weapon.BasicBullet.prototype.fire = function (source) {
+Weapon.BasicGun.prototype.fire = function (source) {
 
   if (this.game.time.time < this.nextFire) {
     return;
@@ -64,7 +64,7 @@ Weapon.BasicBullet.prototype.fire = function (source) {
 
 };
 
-Weapon.TargetingBullet = function (game) {
+Weapon.TargetingGun = function (game) {
 
   Phaser.Group.call(this, game, game.world, 'Basic Bullet', false, true, Phaser.Physics.ARCADE);
 
@@ -77,10 +77,10 @@ Weapon.TargetingBullet = function (game) {
   }
 };
 
-Weapon.TargetingBullet.prototype = Object.create(Phaser.Group.prototype);
-Weapon.TargetingBullet.constructor = Weapon.TargetingBullet;
+Weapon.TargetingGun.prototype = Object.create(Phaser.Group.prototype);
+Weapon.TargetingGun.constructor = Weapon.TargetingGun;
 
-Weapon.TargetingBullet.prototype.fire = function (source, target) {
+Weapon.TargetingGun.prototype.fire = function (source, target) {
   this.source = source;
   if (this.game.time.time < this.nextFire) {
     return;

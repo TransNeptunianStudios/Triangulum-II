@@ -12,7 +12,7 @@ Level.prototype = {
     this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'background');
     this.background.autoScroll(0, 10);
 
-    this._playerWeapons.push(new Weapon.BasicBullet(this.game));
+    this._playerWeapons.push(new Weapon.BasicGun(this.game));
 
     this._elapsedMsSinceStart = 0;
     this.game.time.reset();

@@ -8,7 +8,7 @@ var Enemy1 = {
     init: function(sprite) {
       // Add animations
       sprite.animations.add('die', [1, 3]);
-      sprite.weapon = new Weapon.TargetingBullet(sprite.game);
+      sprite.weapon = new Weapon.TargetingGun(sprite.game);
     },
 
     update: function(sprite) {
