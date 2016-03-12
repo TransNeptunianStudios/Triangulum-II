@@ -32,18 +32,7 @@ Level.prototype = {
 
     this._enemies = newLevel.slice(); // copying
 
-    // super fat way to get boss spawntime from enemies...
-    var bossSpawnTime = 0;
-    for(e in this._enemies){
-      var enemySpawnTime = this._enemies[e].spawn_time;
-      if (enemySpawnTime >= bossSpawnTime)
-        bossSpawnTime = enemySpawnTime + 10000;
-    }
-
-    this._enemies.push({'spawn_time': bossSpawnTime,
-                  'start_x': this.game.width/2,
-                  'start_speed': 20,
-                  'type': boss});
+    this.level = level;
 
     this._completed = false;
   },
@@ -58,6 +47,8 @@ Level.prototype = {
         }, this);
       }
     }
+    else if(this._levelBoss  == null && this.level == 0)
+          this._levelBoss = new Flagship(this.game, this._bulletGroup, this._player);
 
     // Handle player collision with enemies
     this.game.physics.arcade.overlap(this._player, this._enemyGroup, null, function(player, enemy) {
@@ -124,27 +115,6 @@ Level.prototype = {
           x: enemy['start_x'],
           y: -16
         }, enemy['start_speed'], this._bulletGroup, Mine, this._player));
-        break;
-      // Bosses
-      case 'flagship':
-        var base = new Enemy(this.game, {
-          x: enemy['start_x'],
-          y: -110 // get something mathy instead
-        }, enemy['start_speed'], this._bulletGroup, Flagship, this._player);
-
-        base.leftTurret = new Enemy(this.game, {
-          x: enemy['start_x']-60,
-          y: -90 // get something mathy instead
-        }, enemy['start_speed'], this._bulletGroup, LeftTurret, this._player);
-
-        base.rightTurret = new Enemy(this.game, {
-          x: enemy['start_x']+60,
-          y: -90 // get something mathy instead
-        }, enemy['start_speed'], this._bulletGroup, RightTurret, this._player);
-
-        enemies.push(base);
-        enemies.push(base.leftTurret);
-        enemies.push(base.rightTurret);
         break;
       default:
         console.log("Factory was told to create an unknown enemy!")
