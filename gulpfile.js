@@ -4,7 +4,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var watch = require('gulp-watch');
 var shell = require('gulp-shell');
 var browserSync = require('browser-sync').create();
-
+var debug = require('gulp-debug');
 gulp.task('scripts', () => {
     gulp.src([
         "tools/**/*.json",
@@ -12,7 +12,7 @@ gulp.task('scripts', () => {
         "src/**/*.js",
     ])
         .pipe(sourcemaps.init())
-         // concat has support for sourcemaps.
+        // concat has support for sourcemaps.
         .pipe(concat('game.js'))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('dist/'))
@@ -26,7 +26,17 @@ gulp.task('serve', () => {
             baseDir: "./"
         }
     });
+    gulp.watch("src/**/*.js", ['scripts']);
     gulp.watch("*.html").on('change', browserSync.reload);
     gulp.watch('lib/*.js', ['scripts']);
     gulp.watch('tools/*.json', ['scripts']);
 });
+
+gulp.task('watch', () => {
+    gulp.watch("src/**/*.js", ['scripts']);
+    gulp.watch("*.html").on('change', browserSync.reload);
+    gulp.watch('lib/*.js', ['scripts']);
+    gulp.watch('tools/*.json', ['scripts']);
+});
+
+gulp.task('default', ['serve']);

@@ -47,8 +47,8 @@ Level.prototype = {
         }, this);
       }
     }
-    else if(this._levelBoss  == null && this.level == 0)
-          this._levelBoss = new Flagship(this.game, this._bulletGroup, this._player);
+    else if(this._levelBoss  == null && this.level == 0 )
+          this._levelBoss = new Flagship(this.game, this._player);
 
     // Handle player collision with enemies
     this.game.physics.arcade.overlap(this._player, this._enemyGroup, null, function(player, enemy) {
@@ -71,6 +71,14 @@ Level.prototype = {
       bullet.hit();
     }, this);
 
+    /*if(this._levelBoss != null)
+    {
+      // Handle enemy bullet collision with player
+      this.game.physics.arcade.overlap(this._player, this._levelBoss, null, function(player, boss) {
+        player.hit();
+        boss.hit();
+      }, this);
+    }*/
 
     // Handle player bullet's collision with enemies
     for (var i = 0; i < this._playerWeapons.length; i++) {
@@ -83,6 +91,8 @@ Level.prototype = {
         }, this);
       }, this);
     }
+
+
 
     // End level if player dead
     if (!this._player.alive) {

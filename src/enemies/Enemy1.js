@@ -1,5 +1,3 @@
-
-
 var Enemy1 = {
 
   spriteName: 'enemy1',
