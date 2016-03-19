@@ -4,7 +4,7 @@ var Enemy = function(game, startPos, startSpeed, bulletGroup, enemyType, player)
   Phaser.Sprite.call(this, game, startPos.x, startPos.y, enemyType.spriteName);
 
   // Enable physics for sprite
-  this.game.physics.arcade.enable(this);
+  game.physics.arcade.enable(this);
 
   // Enemy shall be destroyd if out of world bounds.
   // Set start Y coordinate with care so that object
@@ -18,10 +18,6 @@ var Enemy = function(game, startPos, startSpeed, bulletGroup, enemyType, player)
   this.body.velocity.y = startSpeed;
 
   this.events.onKilled.add(function() {
-    this.destroy(true);
-  }, this);
-
-  this.events.onOutOfBounds.add(function() {
     this.destroy(true);
   }, this);
 
@@ -91,6 +87,26 @@ Enemy.prototype.die = function() {
   }
 }
 
+var FlagshipHull = {
+
+  spriteName: 'flagship',
+
+  entityFunctions: {
+    init: function(sprite) {
+      // Add animations
+      sprite.animations.add('die', [1, 3]);
+    },
+
+    update: function(sprite) {
+      sprite.angle += 1;
+    },
+
+    die: function(sprite) {
+      sprite.animations.play('die', 3, false, true);
+    }
+  }
+};
+
 var BasicAsteroid = {
 
   spriteName: 'basic_asteroid',
@@ -99,6 +115,9 @@ var BasicAsteroid = {
     init: function(sprite) {
       // Add animations
       sprite.animations.add('die', [1, 3]);
+      this.events.onOutOfBounds.add(function() {
+        this.destroy(true);
+      }, this);
     },
 
     update: function(sprite) {
@@ -120,6 +139,9 @@ var Enemy1 = {
       // Add animations
       sprite.animations.add('die', [1, 3]);
       sprite.weapon = new Weapon.TargetingGun(sprite.game);
+      this.events.onOutOfBounds.add(function() {
+        this.destroy(true);
+      }, this);
     },
 
     update: function(sprite) {
@@ -148,6 +170,9 @@ var Mine = {
     init: function(sprite) {
       // Add animations
       sprite.animations.add('die', [1, 3]);
+      this.events.onOutOfBounds.add(function() {
+        this.destroy(true);
+      }, this);
     },
 
     update: function(sprite) {
